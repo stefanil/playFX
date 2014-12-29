@@ -1,23 +1,14 @@
-// import play.PlayJava
+import play.PlayJava
+//import play.PlayScala
 
 name := """playFX"""
 
 version := "0.1-SNAPSHOT"
 
-lazy val root = (project in file("."))
-//  .enablePlugins(PlayJava)
-  .aggregate(play, java)
-  .dependsOn(play, java)
+lazy val server = (project in file("modules/server")).enablePlugins(PlayJava)
 
-lazy val play = (project in file("modules/play"))//.enablePlugins(PlayScala)
+lazy val clientfx = project in file("modules/clientfx")//.enablePlugins(PlayJava)
 
-lazy val java = (project in file("modules/java"))//.enablePlugins(PlayScala)
-
-scalaVersion := "2.11.1"
-
-//libraryDependencies ++= Seq(
-//  javaJdbc,
-//  javaEbean,
-//  cache,
-//  javaWs
-//)
+lazy val playfx = (project in file("."))
+  .aggregate(server, clientfx)
+  //.dependsOn(server, client)
